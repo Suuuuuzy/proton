@@ -3,13 +3,11 @@
 </p>
 
 <p align="center">
-  <span style="font-size: 24px;"><b> Proton </b></span>
+  <span style="font-size: 24px;"><b> Proton </b></span><br>
+  <span> Proton is an instrumented electron for security testing.</span>
 </p>
 
 <hr>
-
-Proton is an instrumented electron for security testing.
-
 ### Run
 
 ```
