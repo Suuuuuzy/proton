@@ -1,4 +1,12 @@
-## Proton
+<p align="center">
+  <img align="center" alt="Proton" src="./proton-logo.svg" height="195">
+</p>
+
+<p align="center">
+  <span style="font-size: 24px;"><b> Proton </b></span>
+</p>
+
+<hr>
 
 Proton is an instrumented electron for security testing.
 
@@ -99,6 +107,7 @@ proton --log-dir /path/to/logs --canary proton1337 --canary-only --sink-only --a
       + `contents.sendToFrame`
       + `contents.send`, `frame.send`
       + `contents.postMessage`
+      + `new MessageChannelMain().postMessage`
 + General
   + String-related operations
     + `Object.getOwnPropertyNames(String.prototype)`
