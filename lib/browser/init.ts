@@ -140,13 +140,6 @@ if (packageJson.v8Flags != null) {
 
 app.setAppPath(packagePath);
 
-// ===== [Runaway] Starts =====
-const { setupLogger } = require('./logger');
-
-const logger = setupLogger(app.name || 'unknown-app');
-logger.info('Logger initialized for main process');
-// ===== [Runaway] Ends =====
-
 // Load the chrome devtools support.
 require('@electron/internal/browser/devtools');
 
@@ -207,6 +200,33 @@ app.once('will-finish-launching', setDefaultApplicationMenu);
 
 const { appCodeLoaded } = process;
 delete process.appCodeLoaded;
+
+// ===== [Runaway] Starts =====
+const { setupLogger } = require('./logger');
+
+const logger = setupLogger(app.name || 'unknown-app');
+
+// Hook app.setAsDefaultProtocolClient
+const _setAsDefaultProtocolClient = app.setAsDefaultProtocolClient;
+app.setAsDefaultProtocolClient = (...args) => {
+  logger.info(`[app.setAsDefaultProtocolClient] Setting default protocol client: ${args.join(', ')}`);
+  return _setAsDefaultProtocolClient.apply(app, args);
+};
+
+// Hook app.on to intercept 'open-url' events
+const _appOn = app.on.bind(app);
+app.on = (event: any, listener: any) => {
+  if (event === 'open-url') {
+    logger.info('[app.on] Registering \'open-url\' event handler');
+    return _appOn(event, (evt: any, url: string) => {
+      logger.info(`[app.on('open-url')] Received URL: ${url}`);
+      return listener(evt, url);
+    });
+  }
+  return _appOn(event, listener);
+};
+
+// ===== [Runaway] Ends =====
 
 if (packagePath) {
   // Finally load app's main.js and transfer control to C++.
