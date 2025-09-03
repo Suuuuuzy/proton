@@ -491,8 +491,8 @@ class NativeWindow : public base::SupportsUserData,
 
   std::unique_ptr<views::Widget> widget_ = std::make_unique<views::Widget>();
 
-  static inline int32_t next_id_ = 0;
-  const int32_t window_id_ = ++next_id_;
+  static int32_t GetNextWindowId();
+  const int32_t window_id_ = GetNextWindowId();
 
   // The "titleBarStyle" option.
   const TitleBarStyle title_bar_style_;

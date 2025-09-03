@@ -97,6 +97,16 @@ gfx::Size GetExpandedWindowSize(const NativeWindow* window,
 
 }  // namespace
 
+}  // namespace electron
+
+namespace electron {
+
+// static
+int32_t NativeWindow::GetNextWindowId() {
+  static int32_t next_window_id = 0;
+  return ++next_window_id;
+}
+
 NativeWindow::NativeWindow(const gin_helper::Dictionary& options,
                            NativeWindow* parent)
     : title_bar_style_{options.ValueOrDefault(options::kTitleBarStyle,
