@@ -202,30 +202,9 @@ const { appCodeLoaded } = process;
 delete process.appCodeLoaded;
 
 // ===== [Runaway] Starts =====
-const { setupLogger } = require('./logger');
+const { setupLogger } = require('./runaway-electron/logger');
 
-const logger = setupLogger(app.name || 'unknown-app');
-
-// Hook app.setAsDefaultProtocolClient
-const _setAsDefaultProtocolClient = app.setAsDefaultProtocolClient;
-app.setAsDefaultProtocolClient = (...args) => {
-  logger.info(`[app.setAsDefaultProtocolClient] Setting default protocol client: ${args.join(', ')}`);
-  return _setAsDefaultProtocolClient.apply(app, args);
-};
-
-// Hook app.on to intercept 'open-url' events
-const _appOn = app.on.bind(app);
-app.on = (event: any, listener: any) => {
-  if (event === 'open-url') {
-    logger.info('[app.on] Registering \'open-url\' event handler');
-    return _appOn(event, (evt: any, url: string) => {
-      logger.info(`[app.on('open-url')] Received URL: ${url}`);
-      return listener(evt, url);
-    });
-  }
-  return _appOn(event, listener);
-};
-
+setupLogger(app.name || 'unknown-app');
 // ===== [Runaway] Ends =====
 
 if (packagePath) {

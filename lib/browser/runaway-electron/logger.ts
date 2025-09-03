@@ -38,7 +38,7 @@ function setupLogger (appName?: string) {
         type: 'console',
         layout: {
           type: 'pattern',
-          pattern: '[%d{ISO8601}] [%p] [RUNAWAY:MAIN] %m'
+          pattern: '[%d{ISO8601}] [%p] [RUNAWAY:MAIN] - %m'
         }
       },
       file: {
@@ -49,7 +49,7 @@ function setupLogger (appName?: string) {
         compress: true,
         layout: {
           type: 'pattern',
-          pattern: '[%d{ISO8601}] [%p] [RUNAWAY:MAIN] %m'
+          pattern: '[%d{ISO8601}] [%p] [RUNAWAY:MAIN] - %m'
         }
       }
     },
