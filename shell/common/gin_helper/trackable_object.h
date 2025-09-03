@@ -45,8 +45,8 @@ class TrackableObjectBase : public CleanedUpAtExit {
  private:
   void Destroy();
 
-  static inline int32_t next_id_ = 0;
-  const int32_t weak_map_id_ = ++next_id_;
+  static int32_t GetNextId();
+  const int32_t weak_map_id_ = GetNextId();
 
   base::WeakPtrFactory<TrackableObjectBase> weak_factory_{this};
 };

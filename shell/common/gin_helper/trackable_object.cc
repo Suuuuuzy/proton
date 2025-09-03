@@ -46,6 +46,12 @@ void TrackableObjectBase::Destroy() {
   delete this;
 }
 
+// static
+int32_t TrackableObjectBase::GetNextId() {
+  static int32_t next_id = 0;
+  return ++next_id;
+}
+
 void TrackableObjectBase::AttachAsUserData(base::SupportsUserData* wrapped) {
   wrapped->SetUserData(kTrackedObjectKey,
                        std::make_unique<IDUserData>(weak_map_id_));
