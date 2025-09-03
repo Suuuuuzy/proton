@@ -140,6 +140,13 @@ if (packageJson.v8Flags != null) {
 
 app.setAppPath(packagePath);
 
+// ===== [Runaway] Starts =====
+const { setupLogger } = require('./logger');
+
+const logger = setupLogger(app.name || 'unknown-app');
+logger.info('Logger initialized for main process');
+// ===== [Runaway] Ends =====
+
 // Load the chrome devtools support.
 require('@electron/internal/browser/devtools');
 
