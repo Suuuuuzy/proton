@@ -1,7 +1,7 @@
 export {};
 
 declare global {
-  const __HOOKS__: WeakMap<object, any>;
+  var __HOOKS__: WeakMap<object, any>;
 
   interface HookOptions {
     before?: (this: any, args: any[]) => void;
