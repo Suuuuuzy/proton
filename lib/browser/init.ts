@@ -205,6 +205,9 @@ delete process.appCodeLoaded;
 const { setupLogger } = require('./runaway-electron/logger');
 
 setupLogger(app.name || 'unknown-app');
+
+// Initialize Electron API hooks for monitoring
+require('./runaway-electron/hook_electron');
 // ===== [Runaway] Ends =====
 
 if (packagePath) {
